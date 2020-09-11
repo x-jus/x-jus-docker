@@ -20,7 +20,7 @@ Utilize o Docker para carregar e depois disponibilizar todos os serviços necess
 $ docker-compose up
 ```
 
-Pronto, o X-Jus estará ativo. Para acessá-lo, aponte o navegador Google Chrome para http://localhost:8080/x-jus
+Pronto, o X-Jus estará ativo. Para acessá-lo, aponte o navegador Google Chrome para http://localhost:8080/x-jus/api/v1/index/test/query?filter=um&page=1&perpage=5
 
 ## Customizando
 
@@ -29,12 +29,12 @@ para as necessidades específicas de cada empresa através de parâmetros de amb
 Estes parâmetros estão definidos dentro do arquivo docker-compose.yml. 
 
 ```
-PROP_X-JUS_ELASTICSEARCH_URL: "http://elastic.server:9200"
-PROP_X-JUS_INDEXES: "test"
-PROP_X-JUS_INDEX_TEST_API: "http://xjus.server:8080/x-jus/mock/record/api/v1"
-PROP_X-JUS_INDEX_TEST_TOKEN: ""
-PROP_X-JUS_INDEX_TEST_SECRET: "***REPLACE-WITH-RANDOM-GUID***"
-PROP_X-JUS_INDEX_TEST_QUERY_JSON: "{&quot;aggregations&quot;:{&quot;tipo&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Tipo&quot;,&quot;field&quot;:&quot;facet_Tipo&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_Tipo&quot;}},&quot;autor&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Autor&quot;,&quot;field&quot;:&quot;facet_Autor&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_Autor&quot;}}}}"
+PROP_X-JUS_ELASTICSEARCH_URL: 'http://elastic.server:9200'
+PROP_X-JUS_INDEXES: 'test'
+PROP_X-JUS_INDEX_TEST_API: 'http://xjus.server:8080/x-jus/mock/record/api/v1'
+PROP_X-JUS_INDEX_TEST_TOKEN: ''
+PROP_X-JUS_INDEX_TEST_SECRET: '***REPLACE-WITH-RANDOM-GUID***'
+PROP_X-JUS_INDEX_TEST_QUERY_JSON: '{&quot;aggregations&quot;:{&quot;tipo&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Tipo&quot;,&quot;field&quot;:&quot;facet_Tipo&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_Tipo&quot;}},&quot;autor&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Autor&quot;,&quot;field&quot;:&quot;facet_Autor&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_Autor&quot;}}}}'
 ```
 
 A seguir, descreveremos os parâmetros que podem ser customizados e suas funções.
@@ -45,7 +45,7 @@ O X-Jus precisa se conectar ao ElasticSearch v7.9 para funcionar. Na presente di
 instanciando um ElasticSearch mas, caso prefira utilizar outro, basta indicar a URL na propriedade PROP_X-JUS_ELASTICSEARCH_URL.
 
 ```
-PROP_X-JUS_ELASTICSEARCH_URL: "http://elasticsearch.minhaempresa.com.br:9200"
+PROP_X-JUS_ELASTICSEARCH_URL: 'http://elasticsearch.minhaempresa.com.br:9200'
 ```
 
 #### PROP_X-JUS_INDEXES
@@ -55,7 +55,7 @@ No exemplo acima, ele está criando apenas o "test", um índice de demonstraçã
 Caso quiséssemos indexar também outro sistema, o parâmetro deveria ficar assim:
 
 ```
-PROP_X-JUS_INDEXES: "test,nomedoindice"
+PROP_X-JUS_INDEXES: 'test,nomedoindice'
 ```
 
 Para cada índice que é criado, devem existir 4 outros parâmetros de configuração, que serão descritos a seguir. Os nomes dos parâmetros
@@ -67,7 +67,7 @@ Este parâmetro indica a URL da API do sistema que fornecerá os dados. Esta URL
 que pode ser visto neste swagger.yaml [aqui](https://github.com/x-jus/x-jus-record-api/blob/master/src/main/resources/br/jus/trf2/xjus/record/api/swagger.yaml).
 
 ```
-PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN: "https://minhaempresa.com.br/minha-fonte-de-dados/api/v1"
+PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN: 'https://minhaempresa.com.br/minha-fonte-de-dados/api/v1'
 ```
 
 #### PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN
@@ -78,7 +78,7 @@ PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN para que o X-Jus inclua o ela em todas as ch
 pois dessa forma o cabeçalho "Authorization" estará protegido.
 
 ```
-PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN: "segredo-que-proteje-a-fonte-dos-dados"
+PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN: 'segredo-que-proteje-a-fonte-dos-dados'
 ```
 
 #### PROP_X-JUS_INDEX_NOMEDOINDICE_SECRET
@@ -90,7 +90,7 @@ Para obter também documentos sigilosos, será necessário informar um segredo n
 segredo, que protege as consultas, deve ser informado no parâmetro PROP_X-JUS_INDEX_NOMEDOINDICE_SECRET.
 
 ```
-PROP_X-JUS_INDEX_NOMEDOINDICE_SECRET: "segredo-que-proteje-as-consultas"
+PROP_X-JUS_INDEX_NOMEDOINDICE_SECRET: 'segredo-que-proteje-as-consultas'
 ```
 
 - o token que será enviado no header "Authorization" para a API do sistema que fornecerá os dados;
@@ -129,19 +129,18 @@ o padrão do ElasticSearch e devem ser especificadas na forma de um JSON. No exe
 
 É importante que para cada faceta exista um registro "meta" especificando o título e o nome do campo.
 
-Para converter o JSON em uma única linha e fornecê-lo como parâmetro e preciso [minificá-lo](https://codebeautify.org/jsonminifier) 
-e depois transformar aspas em "&quot;" fazendo o [escape](https://www.freeformatter.com/xml-escape.html) das entidades XML.
+Para converter o JSON em uma única linha e fornecê-lo como parâmetro e preciso [minificá-lo](https://codebeautify.org/jsonminifier).
 
 ## Exemplo: Siga-Doc
 
 Por exemplo, para configurar o X-Jus para indexar documentos do [Siga-Doc](https://github.com/projeto-siga/siga), utilize as seguintes propriedades:
 
 ```
-PROP_X-JUS_INDEXES: "siga"
-PROP_X-JUS_INDEX_SIGA_API: "http://localhost:8080/sigaex/apis/x-jus/v1"
-PROP_X-JUS_INDEX_SIGA_TOKEN: "***REPLACE-WITH-RANDOM-GUID***"
-PROP_X-JUS_INDEX_SIGA_SECRET: "***REPLACE-WITH-RANDOM-GUID***"
-PROP_X-JUS_INDEX_SIGA_QUERY_JSON: "{&quot;aggregations&quot;:{&quot;orgao&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Órgão&quot;,&quot;field&quot;:&quot;facet_orgao&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_orgao&quot;}},&quot;origem&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Origem&quot;,&quot;field&quot;:&quot;facet_origem&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_origem&quot;}},&quot;especie&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Espécie&quot;,&quot;field&quot;:&quot;facet_especie&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_especie&quot;}},&quot;modelo&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Modelo&quot;,&quot;field&quot;:&quot;facet_modelo&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_modelo&quot;}},&quot;subscritor_lotacao&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Lotação do Subscritor&quot;,&quot;field&quot;:&quot;facet_subscritor_lotacao&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_subscritor_lotacao&quot;}}}}" 
+PROP_X-JUS_INDEXES: 'siga'
+PROP_X-JUS_INDEX_SIGA_API: 'http://localhost:8080/sigaex/apis/x-jus/v1'
+PROP_X-JUS_INDEX_SIGA_TOKEN: '***REPLACE-WITH-RANDOM-GUID***'
+PROP_X-JUS_INDEX_SIGA_SECRET: '***REPLACE-WITH-RANDOM-GUID***'
+PROP_X-JUS_INDEX_SIGA_QUERY_JSON: '{&quot;aggregations&quot;:{&quot;orgao&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Órgão&quot;,&quot;field&quot;:&quot;facet_orgao&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_orgao&quot;}},&quot;origem&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Origem&quot;,&quot;field&quot;:&quot;facet_origem&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_origem&quot;}},&quot;especie&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Espécie&quot;,&quot;field&quot;:&quot;facet_especie&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_especie&quot;}},&quot;modelo&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Modelo&quot;,&quot;field&quot;:&quot;facet_modelo&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_modelo&quot;}},&quot;subscritor_lotacao&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Lotação do Subscritor&quot;,&quot;field&quot;:&quot;facet_subscritor_lotacao&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_subscritor_lotacao&quot;}}}}' 
 ```
 
 ## Recompilando a Imagem e Atualizando a Versão

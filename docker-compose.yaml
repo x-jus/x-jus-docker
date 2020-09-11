@@ -9,12 +9,12 @@ services:
       - "8080:8080"
     environment:
       TZ: "America/Denver"
-      PROP_X-JUS_ELASTICSEARCH_URL: "http://elastic.server:9200"
-      PROP_X-JUS_INDEXES: "test"
-      PROP_X-JUS_INDEX_TEST_API: "http://xjus.server:8080/x-jus/mock/record/api/v1"
-      PROP_X-JUS_INDEX_TEST_SECRET: "***REPLACE-WITH-RANDOM-GUID***"
-      PROP_X-JUS_INDEX_TEST_TOKEN: ""
-      PROP_X-JUS_INDEX_TEST_QUERY_JSON: "{&quot;aggregations&quot;:{&quot;tipo&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Tipo&quot;,&quot;field&quot;:&quot;facet_Tipo&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_Tipo&quot;}},&quot;autor&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Autor&quot;,&quot;field&quot;:&quot;facet_Autor&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_Autor&quot;}}}}"
+      PROP_X-JUS_ELASTICSEARCH_URL: 'http://elastic.server:9200'
+      PROP_X-JUS_INDEXES: 'test'
+      PROP_X-JUS_INDEX_TEST_API: 'http://xjus.server:8080/x-jus/mock/record/api/v1'
+      PROP_X-JUS_INDEX_TEST_SECRET: '***REPLACE-WITH-RANDOM-GUID***'
+      PROP_X-JUS_INDEX_TEST_TOKEN: ''
+      PROP_X-JUS_INDEX_TEST_QUERY_JSON: '{"aggregations":{"tipo":{"meta":{"title":"Tipo","field":"facet_Tipo"},"terms":{"field":"facet_Tipo"}},"autor":{"meta":{"title":"Autor","field":"facet_Autor"},"terms":{"field":"facet_Autor"}}}}'
     links:
       - elastic.server
     volumes:
@@ -29,11 +29,11 @@ services:
     ports:
       - 9200:9200
     environment:
-      discovery.type: "single-node"
+      discovery.type: 'single-node'
     volumes:
-      - mysql-volume:/var/lib/elasticsearch
+      - elastic-volume:/var/lib/elasticsearch
 
 volumes:
   log-volume: {}
   tmp-volume: {}
-  mysql-volume: {}
+  elastic-volume: {}
