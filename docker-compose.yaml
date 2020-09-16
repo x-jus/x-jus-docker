@@ -10,6 +10,8 @@ services:
     environment:
       TZ: "America/Denver"
       PROP_X-JUS_ELASTICSEARCH_URL: 'http://elastic.server:9200'
+      PROP_X-JUS_ELASTICSEARCH_AUTH_BASIC_USER: 'elastic'
+      PROP_X-JUS_ELASTICSEARCH_AUTH_BASIC_PASSWORD: 'espassword'
       PROP_X-JUS_INDEXES: 'test'
       PROP_X-JUS_INDEX_TEST_API: 'http://xjus.server:8080/x-jus/mock/record/api/v1'
       PROP_X-JUS_INDEX_TEST_SECRET: '***REPLACE-WITH-RANDOM-GUID***'
@@ -29,7 +31,10 @@ services:
     ports:
       - 9200:9200
     environment:
-      discovery.type: 'single-node'
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_USER=elastic
+      - ELASTIC_PASSWORD=espassword
     volumes:
       - elastic-volume:/var/lib/elasticsearch
 
