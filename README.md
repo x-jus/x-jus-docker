@@ -22,6 +22,15 @@ $ docker-compose up
 
 Pronto, o X-Jus estará ativo. Para acessá-lo, aponte o navegador Google Chrome para http://localhost:8080/x-jus/api/v1/index/test/query?filter=um&page=1&perpage=5
 
+Em alguns sistemas Linux, observamos que o ```firewalld``` impediu a comunicação entre os containers e notamos mensagens do tipo "Host unreachable" ou "Connection closed". Isso pode ser resolvido com ```sudo systemctl stop firewalld``` e depois ```sudo systemctl disable firewalld```. Também convém remover regras de filtro de pacotes com o commando ```iptables -F```. Por fim, para evitar que o espaço de IPs usado pelo Docker se sobreponha a algum outro pré-existente ajuste o arquivo conforme abaixo:
+
+```SHELL
+cat /etc/docker/daemon.json
+{
+   "bip": "192.168.200.3/24"
+}
+```
+
 ## Customizando
 
 O funcionamento do X-Jus pode ser customizado 
