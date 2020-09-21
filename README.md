@@ -57,6 +57,15 @@ instanciando um ElasticSearch mas, caso prefira utilizar outro, basta indicar a 
 PROP_X-JUS_ELASTICSEARCH_URL: 'http://elasticsearch.minhaempresa.com.br:9200'
 ```
 
+#### PROP_X-JUS_STATUS_DIR
+
+O X-Jus armazena em arquivos do filesystem informações a respeito do progresso de indexação de cada um dos índices por ele mantidos.
+Por padrão, esses arquivos ficam no diretório ```/var/tmp``` mas, caso deseje alterarar, basta acrescentar o parâmetro, conforme exemplo abaixo:
+
+```
+PROP_X-JUS_STATUS_DIR: '/var/lib/x-jus'
+```
+
 #### PROP_X-JUS_INDEXES
 
 Este parâmetro define quais são os índices que o X-Jus criará e manterá atualizados. 
