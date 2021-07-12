@@ -85,7 +85,7 @@ Este parâmetro indica a URL da API do sistema que fornecerá os dados. Esta URL
 que pode ser visto neste swagger.yaml [aqui](https://github.com/x-jus/x-jus-record-api/blob/master/src/main/resources/br/jus/trf2/xjus/record/api/swagger.yaml).
 
 ```
-PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN: 'https://minhaempresa.com.br/minha-fonte-de-dados/api/v1'
+PROP_X-JUS_INDEX_NOMEDOINDICE_API: 'https://minhaempresa.com.br/minha-fonte-de-dados/api/v1'
 ```
 
 #### PROP_X-JUS_INDEX_NOMEDOINDICE_TOKEN
