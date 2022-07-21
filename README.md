@@ -156,9 +156,18 @@ Por exemplo, para configurar o X-Jus para indexar documentos do [Siga-Doc](https
 ```
 PROP_X-JUS_INDEXES: 'siga'
 PROP_X-JUS_INDEX_SIGA_API: 'http://localhost:8080/sigaex/apis/x-jus/v1'
-PROP_X-JUS_INDEX_SIGA_TOKEN: '***REPLACE-WITH-RANDOM-GUID***'
-PROP_X-JUS_INDEX_SIGA_SECRET: '***REPLACE-WITH-RANDOM-GUID***'
+PROP_X-JUS_INDEX_SIGA_TOKEN: '***REPLACE-WITH-RANDOM-GUID-FOR-TOKEN***'
+PROP_X-JUS_INDEX_SIGA_SECRET: '***REPLACE-WITH-RANDOM-GUID-FOR-SECRET***'
 PROP_X-JUS_INDEX_SIGA_QUERY_JSON: '{&quot;aggregations&quot;:{&quot;orgao&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Órgão&quot;,&quot;field&quot;:&quot;facet_orgao&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_orgao&quot;}},&quot;origem&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Origem&quot;,&quot;field&quot;:&quot;facet_origem&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_origem&quot;}},&quot;especie&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Espécie&quot;,&quot;field&quot;:&quot;facet_especie&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_especie&quot;}},&quot;modelo&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Modelo&quot;,&quot;field&quot;:&quot;facet_modelo&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_modelo&quot;}},&quot;subscritor_lotacao&quot;:{&quot;meta&quot;:{&quot;title&quot;:&quot;Lotação do Subscritor&quot;,&quot;field&quot;:&quot;facet_subscritor_lotacao&quot;},&quot;terms&quot;:{&quot;field&quot;:&quot;facet_subscritor_lotacao&quot;}}}}' 
+```
+
+E configure as seguintes propriedades no Siga:
+
+```
+PROP_XJUS_URL: http://localhost:8080/api/v1/index/siga-doc/query
+PROP_XJUS_PERMALINK_URL: /siga/permalink/
+PROP_XJUS_PASSWORD: ***REPLACE-WITH-RANDOM-GUID-FOR-TOKEN***
+PROP_XJUS_JWT_SECRET: ***REPLACE-WITH-RANDOM-GUID-FOR-SECRET***
 ```
 
 ## Recompilando a Imagem e Atualizando a Versão
@@ -172,7 +181,7 @@ $ docker-compose build --no-cache
 $ docker-compose up
 ```
 
-## Executando o Siga numa Instalação Própria do JBoss
+## Executando o X-Jus numa Instalação Própria do JBoss
 
 A configuração oferecida neste repositório funciona perfeitamente e pode ser utilizada em ambiente de produção por empresas
 que tem um número relativamente pequeno de funcionários. Caso haja necessidade de maior capacidade computacional, será
